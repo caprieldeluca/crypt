@@ -1,0 +1,23 @@
+#!/usr/bin/expect -f
+
+# Verificar que la variable PASSPHRASE_PATH está definida
+if {![info exists env(PASSPHRASE_PATH)]} {
+    puts "Error: La variable de entorno PASSPHRASE_PATH no está definida."
+    exit 1
+}
+
+# Construir el comando pasando todos los argumentos al script Bash
+set COMANDO "./encriptar.sh {*}$argv"
+
+# Ejecutar el script de encriptación con los mismos parámetros que recibió expect
+spawn {*}$COMANDO
+
+# Interactuar con la solicitud de la passphrase
+expect "Introduce la passphrase: "
+send "[exec pass show $env(PASSPHRASE_PATH)]\r"
+
+expect "Repite la passphrase: "
+send "[exec pass show $env(PASSPHRASE_PATH)]\r"
+
+# Permitir que la ejecución continúe normalmente
+interact
