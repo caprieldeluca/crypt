@@ -1,0 +1,1 @@
+Los scripts de este repositorio son pequeños programas que utilizo para encriptar información sensible que se sincroniza y se guardan copias en varios dispositivos.
